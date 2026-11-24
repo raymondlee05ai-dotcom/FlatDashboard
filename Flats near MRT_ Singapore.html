@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flats near MRT: Singapore</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f4f6f5;--card:#fff;--ink:#14201e;--mute:#5d6b68;--line:#d9e0de;--accent:#0b7a6e;--dim:#b7c2bf;--warn:#b4531a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121817;--card:#1a2321;--ink:#e6efed;--mute:#96a6a2;--line:#2c3936;--accent:#3fc1ae;--dim:#44524f;--warn:#e68a4f}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121817;--card:#1a2321;--ink:#e6efed;--mute:#96a6a2;--line:#2c3936;--accent:#3fc1ae;--dim:#44524f;--warn:#e68a4f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1060px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 18px;max-width:70ch}
+.ctrl{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:14px}
+.slide{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.big{font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1;min-width:5.5ch}
+.big small{font-size:1rem;color:var(--mute);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.star{all:unset;cursor:pointer;font-size:1.1rem;color:var(--accent)}.star:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.seg.wrap{flex-wrap:wrap}.pf{flex:1;min-width:200px}.seg button{border:0;background:transparent;color:var(--ink);padding:7px 12px;font:inherit;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+.seg button:focus-visible,input:focus-visible,th button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:1.35rem}
+.kpi span{color:var(--mute);font-size:.85rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.panel h2{font-size:1rem;margin:0 0 8px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+svg{width:100%;height:auto;display:block}
+svg text{fill:var(--mute);font:11px "Public Sans",system-ui,sans-serif}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th button{all:unset;cursor:pointer;font-weight:600}
+td.n,th.n{text-align:right}
+.tag{font-size:.78rem;border-radius:99px;padding:1px 8px;border:1px solid var(--line);color:var(--mute)}
+.tag.ok{border-color:var(--accent);color:var(--accent)}
+.note{color:var(--mute);font-size:.88rem}
+.empty{padding:18px;text-align:center;color:var(--mute)}
+pre{overflow:auto;max-height:320px;background:var(--bg);padding:10px;border-radius:8px;font-size:.78rem}
+details{margin-top:6px}
+input[type=number]{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 6px;font:inherit}.row label{display:inline-flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<main>
+<h1>Flats near an MRT station: Singapore</h1>
+<p class="sub">Resale 4-room and 5-room HDB listings gathered from 99.co search pages. Drag the slider to change how close a flat must be to the nearest MRT station. Distances are as shown by the listing platform and have not been checked with a mapping service. Listings were gathered on 24 Nov 2026 and may have changed since.</p>
+
+<section class="ctrl" aria-label="Filters">
+  <div class="slide">
+    <div class="big" id="dv">100<small> m</small></div>
+    <div style="flex:1;min-width:220px">
+      <label for="d" class="note">Maximum distance to nearest MRT station</label>
+      <input id="d" type="range" min="50" max="1000" step="5" value="100">
+    </div>
+  </div>
+  <div class="row">
+    <div class="seg" id="fr" role="group" aria-label="Region"></div>
+    <div class="seg" id="ft" role="group" aria-label="Flat type"></div></div><div class="row"><span class="note">Town</span><div class="seg wrap" id="ftn" role="group" aria-label="Town"></div></div><div class="row" style="width:100%"><div class="pf"><label for="pmin" class="note">Minimum price: <b id="pminv"></b></label><input id="pmin" type="range" min="500000" max="1500000" step="10000" value="500000"></div><div class="pf"><label for="pmax" class="note">Maximum price: <b id="pmaxv"></b></label><input id="pmax" type="range" min="500000" max="1500000" step="10000" value="1500000"></div><div class='pf'><label for='amin' class='note'>Minimum floor area: <b id='aminv'></b></label><input id='amin' type='range' min='60' max='150' step='1' value='60'></div><div class='pf'><label for='amax' class='note'>Maximum floor area: <b id='amaxv'></b></label><input id='amax' type='range' min='60' max='150' step='1' value='150'></div><span class='note'>Listings with no captured price or floor area only show while that range is fully open.</span><div class='pf'><label for='lmin' class='note'>Minimum lease left (est.): <b id='lminv'></b></label><input id='lmin' type='range' min='40' max='99' step='1' value='40'></div><div class='row note'><label>Loan rate % <input id='lr' type='number' step='0.1' min='0' max='10' value='3' style='width:5em'></label><label>Years <input id='lt' type='number' min='5' max='35' value='25' style='width:4.5em'></label><label>Down payment % <input id='ld' type='number' min='5' max='75' value='25' style='width:4.5em'></label></div><label class='note'><input type='checkbox' id='oo' checked> Open stations only</label><div class='seg'><button id='rs'>Reset filters</button></div>
+  </div>
+</section>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="panel">
+  <h2>Distance against price per sqft</h2>
+  <div id="sc"></div>
+  <p class="note" id="scn"></p>
+</section>
+
+<section class="panel"><h2>Where the listings are (schematic)</h2><div id="mp"></div><p class="note">Station positions are approximate and were not taken from a mapping service, so treat this as a rough guide. Filled circles are open stations and dashed circles are planned ones. Circle size shows how many listings are within the cutoff.</p></section>
+<section class="panel"><h2>Median price per sqft by region</h2><div id="reg"></div></section>
+<div class="grid2">
+  <section class="panel"><h2>Listings per MRT station</h2><div id="bar"></div></section>
+  <section class="panel"><h2>Coverage notes</h2>
+    <p class='note'>East and North-East listings were added in this update, and none is within 245m of an open station. Regions follow URA, except South, which here means Bukit Merah (Redhill and Tiong Bahru), a part of URA's Central region. Punggol and Sengkang are left out because their closest listings were measured to LRT stations, not MRT.</p><p class='note'>The 8m listing at Redhill MRT is the closest in the set and is worth checking on a map. 135 Jalan Bukit Merah appeared at several prices for the same size, so only the lowest is kept. Floor area in sqm is converted from the platform's sqft.</p><p class='note'>Stations marked not open yet are hidden by default, because a listing near a future station is not near a running one. They are Choa Chu Kang West on the Jurong Region Line (targeted for mid-2028) and Pasir Ris East, Tampines North and Serangoon North on the planned Cross Island Line. The Cross Island Line stations are an assumption from their CR codes, so check LTA for dates. Untick Open stations only to see them.</p><p class='note'>The town median column compares the asking price with HDB's 3Q 2026 median for the town and flat type, as reported by Dollars and Sense and Little Big Red Dot. It is only available for six listings and is a rough guide, since medians mix flats of every size and age.</p><p class='note'>Lease left is estimated as 99 minus the years since the built year. The monthly figure is a simple repayment estimate from the loan assumptions above, not a loan offer or advice. The median comparison uses captured listings of the same region and type and only appears when there are three or more.</p>
+    <p class="note">Left out for data quality: 53 Lorong 5 Toa Payoh (labelled 5-room but listed at 731 sqft) and 75 Marine Drive (no distance shown). Duplicate listings seen on several result pages were merged by address and unit size.</p>
+    <p class="note">The Marine Parade unit without an address has a price worked out from its psf and size.</p>
+  </section>
+</div>
+
+<section class="panel">
+  <h2>Listings</h2><div class="row"><div class="seg"><button id="cp">Copy as CSV</button></div><span class="note" id="cpn"></span></div>
+  <div class="scroll"><table id="tb"></table></div>
+</section>
+
+<section class="panel">
+  <h2>Shortlist</h2><div class="scroll" id="fv"></div></section>
+<section class="panel"><h2>Data export</h2>
+  <details><summary>Show dashboard JSON</summary><pre id="js"></pre></details>
+</section>
+</main>
+<script>
+var DATA=[
+{id:1,address:"74 Marine Drive",region:"Central",type:"4-room",price:630000,sqft:883,psf:713,built:1977,mrt:"Marine Parade (TE26)",dist:35},
+{id:2,address:"Marine Parade (address not shown)",region:"Central",type:"4-room",price:640175,derived:true,sqft:883,psf:725,built:1975,mrt:"Marine Parade (TE26)",dist:59},
+{id:3,address:"60 Marine Drive",region:"Central",type:"4-room",price:688000,sqft:936,psf:735,built:1976,mrt:"Marine Parade (TE26)",dist:160},
+{id:4,address:"54 Marine Terrace",region:"Central",type:"4-room",price:595000,sqft:947,psf:628,built:1975,mrt:"Marine Terrace (TE27)",dist:163},
+{id:5,address:"61 Marine Drive",region:"Central",type:"4-room",price:780000,sqft:936,psf:833,built:1975,mrt:"Marine Parade (TE26)",dist:192},
+{id:6,address:"9 Boon Keng Road (likely)",region:"Central",type:"5-room",price:null,sqft:null,psf:null,built:null,mrt:"Bendemeer",dist:105},
+{id:7,address:"2A Upper Boon Keng Road",region:"Central",type:"5-room",price:1050000,sqft:1184,psf:887,built:2006,mrt:"Kallang (EW10)",dist:259},
+{id:8,address:"82B Lorong 4 Toa Payoh",region:"Central",type:"5-room",price:1100000,sqft:1302,psf:845,built:1995,mrt:"Toa Payoh (NS19)",dist:345},
+{id:9,address:"141 Lorong 2 Toa Payoh",region:"Central",type:"5-room",price:1448888,sqft:1248,psf:1161,built:1999,mrt:"Toa Payoh (NS19)",dist:418},
+{id:10,address:"101 Bishan Street 12",region:"Central",type:"5-room",price:870000,sqft:1302,psf:668,built:1986,mrt:"Braddell (NS18)",dist:483},
+{id:11,address:"62 Lorong 4 Toa Payoh",region:"Central",type:"5-room",price:958000,sqft:1291,psf:742,built:1969,mrt:"Toa Payoh (NS19)",dist:572},
+{id:12,address:"102 Jalan Dusun",region:"Central",type:"5-room",price:750000,sqft:1270,psf:591,built:1981,mrt:"Toa Payoh (NS19)",dist:612},
+{id:13,address:"173 Bishan Street 13",region:"Central",type:"5-room",price:1000000,sqft:1301,psf:769,built:1987,mrt:"Bishan (NS17/CC15)",dist:755},
+{id:14,address:"104 Jalan Rajah",region:"Central",type:"5-room",price:885000,sqft:1450,psf:610,built:1983,mrt:"Toa Payoh (NS19)",dist:815},
+{id:15,address:"215 Lorong 8 Toa Payoh",region:"Central",type:"5-room",price:708000,sqft:1259,psf:562,built:1975,mrt:"Braddell (NS18)",dist:887},
+{id:16,address:"248 Kim Keat Link",region:"Central",type:"5-room",price:889000,sqft:1301,psf:683,built:1988,mrt:"Toa Payoh (NS19)",dist:910},
+{id:17,address:"249 Kim Keat Link",region:"Central",type:"5-room",price:848000,sqft:1302,psf:651,built:1988,mrt:"Toa Payoh (NS19)",dist:996}
+];
+var st={max:100,region:"All",type:"All",town:"All",pmin:500000,pmax:1500000,amin:60,amax:150,lmin:40,rate:3,tenure:25,down:25,openOnly:true,fav:{},sort:"dist",asc:true};
+var TOWN={1:"Marine Parade",2:"Marine Parade",3:"Marine Parade",4:"Marine Parade",5:"Marine Parade",6:"Kallang/Whampoa",7:"Kallang/Whampoa",8:"Toa Payoh area",9:"Toa Payoh area",10:"Bishan",11:"Toa Payoh area",12:"Toa Payoh area",13:"Bishan",14:"Toa Payoh area",15:"Toa Payoh area",16:"Toa Payoh area",17:"Toa Payoh area"};
+var $=function(i){return document.getElementById(i)};
+function fmt(n){return n==null?"n/a":"S$"+Math.round(n).toLocaleString("en-SG")}
+function med(a){if(!a.length)return null;a=a.slice().sort(function(x,y){return x-y});var m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2}
+function avg(a){return a.length?a.reduce(function(x,y){return x+y},0)/a.length:null}
+function base(){return DATA.filter(function(r){var okP=r.price==null?(st.pmin<=500000&&st.pmax>=1500000):(r.price>=st.pmin&&r.price<=st.pmax);return (st.region==="All"||r.region===st.region)&&(st.type==="All"||r.type===st.type)&&(st.town==="All"||TOWN[r.id]===st.town)&&okP&&okL(r)&&(!st.openOnly||!isFuture(r))&&(r.sqft==null?(st.amin<=60&&st.amax>=150):(sqm(r)>=st.amin-0.5&&sqm(r)<=st.amax+0.5))})}
+function seg(el,opts,key){
+  el.innerHTML="";
+  opts.forEach(function(o){var b=document.createElement("button");b.textContent=o;b.setAttribute("aria-pressed",st[key]===o);
+    b.onclick=function(){st[key]=o;render()};el.appendChild(b)});
+}
+function scatter(all,inn){
+  var W=640,H=300,L=44,R=12,T=12,B=34,mx=1000,my=1300,ix=function(v){return L+v/mx*(W-L-R)},iy=function(v){return H-B-v/my*(H-T-B)};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Scatter plot of distance to MRT against price per square foot">';
+  [0,300,600,900,1200].forEach(function(v){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+iy(v)+'" y2="'+iy(v)+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(iy(v)+4)+'" text-anchor="end">'+v+'</text>'});
+  [0,200,400,600,800,1000].forEach(function(v){s+='<text x="'+ix(v)+'" y="'+(H-14)+'" text-anchor="middle">'+v+' m</text>'});
+  s+='<text x="'+L+'" y="10">S$ per sqft</text>';
+  s+='<rect x="'+L+'" y="'+T+'" width="'+(ix(st.max)-L)+'" height="'+(H-T-B)+'" fill="var(--accent)" opacity=".09"/>';
+  s+='<line x1="'+ix(st.max)+'" x2="'+ix(st.max)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--accent)" stroke-width="2"/>';
+  all.forEach(function(r){
+    if(r.psf==null)return;
+    var on=r.dist<=st.max;
+    s+='<circle cx="'+ix(r.dist)+'" cy="'+iy(r.psf)+'" r="'+(r.type==="5-room"?7:5)+'" fill="'+(on?'var(--accent)':'var(--dim)')+'" '+(r.type==="5-room"?'':'stroke="var(--bg)" stroke-width="1"')+'><title>'+r.address+': '+r.dist+' m, S$'+r.psf+' psf</title></circle>';
+  });
+  return s+'</svg>';
+}
+function bars(inn){
+  var c={};inn.forEach(function(r){c[r.mrt]=(c[r.mrt]||0)+1});
+  var k=Object.keys(c).sort(function(a,b){return c[b]-c[a]});
+  if(!k.length)return '<div class="empty">No stations at this distance.</div>';
+  var h=k.length*26+6,s='<svg viewBox="0 0 400 '+h+'" role="img" aria-label="Listings per station">',mx=Math.max.apply(null,k.map(function(x){return c[x]}));
+  k.forEach(function(n,i){var w=c[n]/mx*170,y=i*26+4;
+    s+='<text x="0" y="'+(y+14)+'">'+n+'</text><rect x="190" y="'+y+'" width="'+w+'" height="18" rx="3" fill="var(--accent)"/><text x="'+(196+w)+'" y="'+(y+14)+'">'+c[n]+'</text>'});
+  return s+'</svg>';
+}
+function table(rows){
+  var cols=[["fav","★","n"],["address","Address"],["type","Type"],["sqft","Floor area","n"],["price","Asking","n"],["psf","S$ psf","n"],["built","Built","n"],["lease","Lease left","n"],["vs","vs median psf","n"],["mo","Est. monthly","n"],["bn","vs 3Q26 town median","n"],["mrt","Nearest MRT"],["dist","Distance","n"]];
+  var h='<thead><tr>'+cols.map(function(c){return '<th class="'+(c[2]||"")+'"><button data-k="'+c[0]+'">'+c[1]+(st.sort===c[0]?(st.asc?" ▲":" ▼"):"")+'</button></th>'}).join("")+'</tr></thead><tbody>';
+  rows=rows.slice().sort(function(a,b){var x=a[st.sort],y=b[st.sort];if(x==null)return 1;if(y==null)return -1;return (x<y?-1:x>y?1:0)*(st.asc?1:-1)});
+  if(!rows.length)h+='<tr><td colspan="13" class="empty">No listings match. Move the slider right or change the filters.</td></tr>';
+  rows.forEach(function(r){h+='<tr><td class="n"><button class="star" data-id="'+r.id+'" aria-label="Shortlist">'+(st.fav[r.id]?'★':'☆')+'</button></td><td>'+r.address+'</td><td>'+r.type+'</td><td class="n">'+(r.sqft==null?'n/a':Math.round(sqm(r))+' sqm / '+r.sqft+' sqft')+'</td><td class="n">'+fmt(r.price)+(r.derived?' <span class="tag">derived</span>':'')+'</td><td class="n">'+(r.psf==null?"n/a":r.psf)+'</td><td class="n">'+(r.built||"n/a")+'</td><td class="n">'+(r.lease==null?"n/a":"~"+r.lease+" yrs")+'</td><td class="n">'+(r.vs==null?"n/a":(r.vs>0?"+":"")+r.vs+"%")+'</td><td class="n">'+(r.mo==null?"n/a":fmt(r.mo))+'</td><td class="n">'+(r.bn==null?"n/a":(r.bn>0?"+":"")+r.bn+"%")+'</td><td>'+r.mrt+(isFuture(r)?' <span class="tag">not open yet</span>':'')+'</td><td class="n"><span class="tag'+(r.dist<100?' ok':'')+'">'+r.dist+' m</span></td></tr>'});
+  $("tb").innerHTML=h+'</tbody>';
+  Array.prototype.forEach.call($("tb").querySelectorAll("th button"),function(b){b.onclick=function(){var k=b.dataset.k;st.asc=st.sort===k?!st.asc:true;st.sort=k;render()}});
+}
+function render(){annotate();
+  $("dv").innerHTML=st.max+'<small> m</small>';
+  seg($("fr"),["All","Central","East","North","North-East","South","West"],"region");
+  seg($("ft"),["All","4-room","5-room"],"type");
+  var tw=['All'];DATA.forEach(function(r){if((st.region==='All'||r.region===st.region)&&tw.indexOf(TOWN[r.id])<0)tw.push(TOWN[r.id])});if(tw.indexOf(st.town)<0)st.town='All';seg($("ftn"),tw,"town");
+  $("pminv").textContent=fmt(st.pmin);$("pmaxv").textContent=fmt(st.pmax);$("aminv").textContent=st.amin+' sqm ('+Math.round(st.amin/0.092903)+' sqft)';$("amaxv").textContent=st.amax+' sqm ('+Math.round(st.amax/0.092903)+' sqft)';$("lminv").textContent=st.lmin<=40?'any':st.lmin+' years';
+  var all=base(),inn=all.filter(function(r){return r.dist<=st.max});
+  var prices=inn.map(function(r){return r.price}).filter(function(v){return v!=null}),psfs=inn.map(function(r){return r.psf}).filter(function(v){return v!=null});
+  var near=med(inn.map(function(r){return r.dist}));
+  $("kpis").innerHTML=[[inn.length,"listings within "+st.max+" m"],[fmt(med(prices)),"median asking price"],[psfs.length?"S$"+Math.round(avg(psfs)):"n/a","average price per sqft"],[near==null?"n/a":Math.round(near)+" m","median distance"],[(function(){var a=inn.filter(function(r){return r.sqft!=null}).map(sqm);return a.length?Math.round(avg(a))+' sqm':'n/a'})(),'average floor area']].map(function(k){return '<div class="kpi"><b>'+k[0]+'</b><span>'+k[1]+'</span></div>'}).join("");
+  $("sc").innerHTML=scatter(all,inn);
+  $("scn").textContent="Filled circles are inside the cutoff. Large circles are 5-room, small are 4-room. "+(all.length-inn.length)+" listings that match your other filters are beyond the distance cutoff.";
+  $("bar").innerHTML=bars(inn);$("reg").innerHTML=regBars(inn);$("mp").innerHTML=stationMap(inn);renderFav();
+  st.rows=inn;table(inn);
+  $("js").textContent=JSON.stringify({listings:inn,summary:{count:inn.length,median_price:med(prices),avg_psf:psfs.length?Math.round(avg(psfs)):null,count_by_station:inn.reduce(function(o,r){o[r.mrt]=(o[r.mrt]||0)+1;return o},{})},dashboard:{max_dist_m:st.max,region:st.region,type:st.type,town:st.town,price_range:[st.pmin,st.pmax],floor_area_sqm_range:[st.amin,st.amax],open_stations_only:st.openOnly,distances_verified:false,source:"99.co search pages"}},null,2);
+}
+$("d").oninput=function(){st.max=+this.value;render()};
+function sqm(r){return r.sqft*0.092903}
+function lease(r){return r.built==null?null:Math.max(0,99-(2026-r.built))}
+function okL(r){var l=lease(r);return l==null?st.lmin<=40:l>=st.lmin}
+function pay(r){if(r.price==null)return null;var P=r.price*(1-st.down/100),i=st.rate/1200,n=st.tenure*12;return i?P*i/(1-Math.pow(1+i,-n)):P/n}
+function annotate(){DATA.forEach(function(r){r.lease=lease(r);r.mo=pay(r);var g=DATA.filter(function(x){return x.region===r.region&&x.type===r.type&&x.psf!=null}).map(function(x){return x.psf});r.vs=(r.psf==null||g.length<3)?null:Math.round((r.psf/med(g)-1)*100);r.bn=(r.price!=null&&BENCH[r.id])?Math.round((r.price/BENCH[r.id]-1)*100):null})}
+function regBars(inn){var g={};inn.forEach(function(r){if(r.psf!=null)(g[r.region]=g[r.region]||[]).push(r.psf)});var k=Object.keys(g);if(!k.length)return '<div class=empty>No priced listings at this distance.</div>';var m=k.map(function(x){return med(g[x])}),mx=Math.max.apply(null,m),h=k.length*26+6,s='<svg viewBox="0 0 400 '+h+'" role=img>';k.forEach(function(n,i){var w=m[i]/mx*170,y=i*26+4;s+='<text x="0" y="'+(y+14)+'">'+n+' ('+g[n].length+')</text><rect x="110" y="'+y+'" width="'+w+'" height="18" rx="3" fill="var(--accent)"/><text x="'+(116+w)+'" y="'+(y+14)+'">S$'+Math.round(m[i])+'</text>'});return s+'</svg>'}
+function isFuture(r){return /Choa Chu Kang West|Pasir Ris East|Tampines North|Serangoon North/.test(r.mrt)}
+function toggle(id){if(st.fav[id])delete st.fav[id];else st.fav[id]=1;try{localStorage.setItem('favs',JSON.stringify(st.fav))}catch(e){}render()}
+function renderFav(){var rows=DATA.filter(function(r){return st.fav[r.id]});if(!rows.length){$('fv').innerHTML='<div class=empty>Star a listing in the table to compare it here.</div>';return}var h='<table><thead><tr><th>★</th><th>Address</th><th>Type</th><th class=n>Floor area</th><th class=n>Asking</th><th class=n>Lease left</th><th>Nearest MRT</th><th class=n>Distance</th><th class=n>Est. monthly</th></tr></thead><tbody>';rows.forEach(function(r){h+='<tr><td><button class=star data-id='+r.id+' aria-label=Remove>★</button></td><td>'+r.address+'</td><td>'+r.type+'</td><td class=n>'+(r.sqft==null?'n/a':Math.round(sqm(r))+' sqm / '+r.sqft+' sqft')+'</td><td class=n>'+fmt(r.price)+'</td><td class=n>'+(r.lease==null?'n/a':'~'+r.lease+' yrs')+'</td><td>'+r.mrt+(isFuture(r)?' (not open yet)':'')+'</td><td class=n>'+r.dist+' m</td><td class=n>'+(r.mo==null?'n/a':fmt(r.mo))+'</td></tr>'});$('fv').innerHTML=h+'</tbody></table>'}
+var ST={'Marine Parade':[1.3025,103.9057],'Marine Terrace':[1.307,103.9153],'Bendemeer':[1.3139,103.8626],'Kallang':[1.3114,103.8714],'Toa Payoh':[1.3327,103.8473],'Braddell':[1.3404,103.8468],'Bishan':[1.351,103.8485],'Admiralty':[1.4406,103.8009],'Sembawang':[1.4491,103.82],'Woodlands':[1.437,103.7865],'Choa Chu Kang West':[1.3789,103.7394],'Choa Chu Kang':[1.3854,103.7443],'Jurong East':[1.3331,103.7421],'Bukit Batok':[1.349,103.7497],'Bukit Gombak':[1.3587,103.7518],'Redhill':[1.2897,103.8168],'Tiong Bahru':[1.2862,103.827],'Tampines East':[1.3563,103.9546],'Tampines':[1.3545,103.9454],'Pasir Ris East':[1.3729,103.9742],'Tampines North':[1.377,103.94],'Bedok Reservoir':[1.3365,103.9324],'Simei':[1.3433,103.9532],'Serangoon North':[1.3745,103.873],'Buangkok':[1.3829,103.8929],'Hougang':[1.3712,103.8921],'Serangoon':[1.3498,103.8736]};
+function stationMap(inn){var W=640,H=420,a0=1.26,a1=1.47,o0=103.69,o1=103.99,px=function(o){return 20+(o-o0)/(o1-o0)*(W-40)},py=function(a){return 20+(a1-a)/(a1-a0)*(H-40)},g={};inn.forEach(function(r){var n=r.mrt.split(' (')[0];g[n]=g[n]||{c:0,f:isFuture(r)};g[n].c++});var k=Object.keys(g);if(!k.length)return '<div class=empty>No listings at this distance.</div>';var s='<svg viewBox="0 0 '+W+' '+H+'" role="img"><rect x="1" y="1" width="'+(W-2)+'" height="'+(H-2)+'" fill="none" stroke="var(--line)"/>';k.forEach(function(n){var p=ST[n];if(!p)return;var x=px(p[1]),y=py(p[0]),r=6+4*Math.sqrt(g[n].c);s+=g[n].f?'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="4 3"/>':'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="var(--accent)" fill-opacity=".55" stroke="var(--accent)"/>';s+='<text x="'+x+'" y="'+(y+r+11)+'" text-anchor="middle">'+n+' ('+g[n].c+')</text>'});return s+'</svg>'}
+function resetAll(){st.max=100;st.region='All';st.type='All';st.town='All';st.pmin=500000;st.pmax=1500000;st.amin=60;st.amax=150;st.lmin=40;st.openOnly=true;$('oo').checked=true;[['d',100],['pmin',500000],['pmax',1500000],['amin',60],['amax',150],['lmin',40]].forEach(function(p){$(p[0]).value=p[1]});render()}
+function loan(){st.rate=Math.max(0,+$('lr').value||0);st.tenure=Math.min(35,Math.max(5,+$('lt').value||25));st.down=Math.min(75,Math.max(5,+$('ld').value||25));render()}
+DATA=DATA.concat([
+{id:18,address:'683A Woodlands Drive 62',region:'North',type:'4-room',price:619000,sqft:1119,psf:553,built:1998,mrt:'Admiralty (NS10)',dist:219},
+{id:19,address:'357C Admiralty Drive',region:'North',type:'4-room',price:570000,sqft:1023,psf:557,built:1999,mrt:'Sembawang (NS11)',dist:285},
+{id:20,address:'681B Woodlands Drive 62',region:'North',type:'4-room',price:null,sqft:1130,psf:null,built:1998,mrt:'Admiralty (NS10)',dist:295},
+{id:21,address:'714 Woodlands Drive 70',region:'North',type:'4-room',price:null,sqft:1076,psf:null,built:1995,mrt:'Admiralty (NS10)',dist:282},
+{id:22,address:'512 Woodlands Drive 14',region:'North',type:'4-room',price:650000,sqft:1130,psf:575,built:1997,mrt:'Woodlands (NS9/TE2)',dist:399},
+{id:23,address:'411 Sembawang Drive',region:'North',type:'4-room',price:538000,sqft:969,psf:555,built:1999,mrt:'Sembawang (NS11)',dist:418},
+{id:24,address:'508C Wellington Circle',region:'North',type:'4-room',price:550000,sqft:915,psf:601,built:2004,mrt:'Sembawang (NS11)',dist:449},
+{id:25,address:'326 Sembawang Crescent',region:'North',type:'4-room',price:578000,sqft:1087,psf:532,built:1997,mrt:'Sembawang (NS11)',dist:493},
+{id:26,address:'704 Woodlands Drive 40',region:'North',type:'4-room',price:588888,sqft:1065,psf:553,built:1995,mrt:'Admiralty (NS10)',dist:523},
+{id:27,address:'360B Admiralty Drive',region:'North',type:'4-room',price:559800,sqft:1023,psf:547,built:2001,mrt:'Sembawang (NS11)',dist:537},
+{id:28,address:'663 Woodlands Ring Road',region:'North',type:'4-room',price:598000,sqft:1098,psf:545,built:1996,mrt:'Admiralty (NS10)',dist:564},
+{id:29,address:'605 Woodlands Drive 42',region:'North',type:'4-room',price:530000,sqft:990,psf:535,built:1995,mrt:'Admiralty (NS10)',dist:576},
+{id:30,address:'365B Sembawang Crescent',region:'North',type:'4-room',price:660000,sqft:1000,psf:660,built:2019,mrt:'Sembawang (NS11)',dist:643},
+{id:31,address:'366A Sembawang Crescent',region:'North',type:'4-room',price:690000,sqft:1001,psf:689,built:2018,mrt:'Sembawang (NS11)',dist:727},
+{id:32,address:'473 Choa Chu Kang Avenue 3',region:'West',type:'5-room',price:599000,sqft:1291,psf:464,built:1999,mrt:'Choa Chu Kang West (JS2)',dist:185},
+{id:33,address:'423 Choa Chu Kang Avenue 4',region:'West',type:'4-room',price:610000,sqft:1119,psf:545,built:1992,mrt:'Choa Chu Kang West (JS2)',dist:327},
+{id:34,address:'502 Choa Chu Kang Street 51',region:'West',type:'5-room',price:656000,sqft:1420,psf:462,built:1995,mrt:'Choa Chu Kang (NS4)',dist:415},
+{id:35,address:'103 Jurong East Street 13',region:'West',type:'5-room',price:710000,sqft:1292,psf:550,built:1982,mrt:'Jurong East (NS1)',dist:508},
+{id:36,address:'292C Bukit Batok East Avenue 6',region:'West',type:'5-room',price:1088888,sqft:1216,psf:895,built:2017,mrt:'Bukit Batok (NS2)',dist:630},
+{id:37,address:'292B Bukit Batok East Avenue 6',region:'West',type:'5-room',price:955000,sqft:1216,psf:785,built:2017,mrt:'Bukit Batok (NS2)',dist:674},
+{id:38,address:'419 Bukit Batok West Avenue 2',region:'West',type:'5-room',price:650000,sqft:1291,psf:503,built:1986,mrt:'Bukit Gombak (NS3)',dist:715},
+{id:39,address:'235 Bukit Batok East Avenue 5',region:'West',type:'4-room',price:575000,sqft:1066,psf:539,built:1985,mrt:'Bukit Batok (NS2)',dist:748},
+{id:40,address:'254 Bukit Batok East Avenue 4',region:'West',type:'5-room',price:648000,sqft:1302,psf:498,built:1984,mrt:'Bukit Batok (NS2)',dist:954},
+{id:41,address:'Tiong Bahru Road (block not shown)',region:'South',type:'5-room',price:1329999,sqft:1302,psf:1022,built:null,mrt:'Redhill (EW18)',dist:8},
+{id:42,address:'68 Redhill Close',region:'South',type:'5-room',price:1330000,sqft:1238,psf:1074,built:2001,mrt:'Redhill (EW18)',dist:297},
+{id:43,address:'Redhill/Tiong Bahru (address not shown)',region:'South',type:'5-room',price:1380000,sqft:1356,psf:1018,built:1993,mrt:'Tiong Bahru (EW17)',dist:268},
+{id:44,address:'26B Jalan Membina',region:'South',type:'4-room',price:920000,sqft:915,psf:1005,built:2007,mrt:'Tiong Bahru (EW17)',dist:330},
+{id:45,address:'125 Bukit Merah View (4A)',region:'South',type:'4-room',price:985000,sqft:1173,psf:840,built:1973,mrt:'Tiong Bahru (EW17)',dist:356},
+{id:46,address:'125 Bukit Merah View (5A)',region:'South',type:'5-room',price:1399999,sqft:1420,psf:986,built:1996,mrt:'Tiong Bahru (EW17)',dist:356},
+{id:47,address:'45 Lengkok Bahru',region:'South',type:'5-room',price:1448000,sqft:1518,psf:954,built:1983,mrt:'Redhill (EW18)',dist:565},
+{id:48,address:'117 Bukit Merah Central',region:'South',type:'5-room',price:688888,sqft:1259,psf:547,built:1977,mrt:'Redhill (EW18)',dist:658},
+{id:49,address:'135 Jalan Bukit Merah',region:'South',type:'5-room',price:1050000,sqft:1291,psf:813,built:1995,mrt:'Tiong Bahru (EW17)',dist:794}
+]);
+DATA=DATA.concat([
+{id:51,address:'364 Tampines Street 34',region:'East',type:'5-room',price:888000,sqft:1302,psf:682,built:1997,mrt:'Tampines East (DT33)',dist:541},
+{id:52,address:'719 Tampines Street 72',region:'East',type:'4-room',price:650000,sqft:1076,psf:604,built:1996,mrt:'Tampines (EW2)',dist:1202},
+{id:53,address:'451 Pasir Ris Drive 6',region:'East',type:'4-room',price:675000,sqft:1108,psf:609,built:1989,mrt:'Pasir Ris East (CR4)',dist:508},
+{id:54,address:'184 Pasir Ris Street 11',region:'East',type:'4-room',price:650000,sqft:1141,psf:570,built:1993,mrt:'Pasir Ris East (CR4)',dist:245},
+{id:55,address:'606B Tampines Street 61',region:'East',type:'4-room',price:817000,sqft:990,psf:825,built:2018,mrt:'Tampines North (CR6)',dist:796},
+{id:56,address:'777 Pasir Ris Street 71',region:'East',type:'4-room',price:665000,sqft:1120,psf:594,built:1995,mrt:'Tampines North (CR6)',dist:642},
+{id:57,address:'98 Bedok North Avenue 4',region:'East',type:'5-room',price:650000,sqft:1291,psf:503,built:1978,mrt:'Bedok Reservoir (DT30)',dist:850},
+{id:58,address:'281 Tampines Street 22',region:'East',type:'4-room',price:null,sqft:1109,psf:null,built:1983,mrt:'Simei (EW3)',dist:452},
+{id:59,address:'627 Hougang Avenue 8',region:'North-East',type:'5-room',price:719998,sqft:1313,psf:548,built:1986,mrt:'Serangoon North (CR9)',dist:923},
+{id:60,address:'Serangoon North Avenue 4 (block not shown)',region:'North-East',type:'5-room',price:840000,sqft:1312,psf:640,built:null,mrt:'Serangoon North (CR9)',dist:378},
+{id:61,address:'439 Hougang Avenue 8',region:'North-East',type:'5-room',price:850000,sqft:1302,psf:653,built:1990,mrt:'Buangkok (NE15)',dist:433},
+{id:62,address:'328 Hougang Avenue 5 (likely)',region:'North-East',type:'4-room',price:540000,sqft:1033,psf:523,built:1982,mrt:'Hougang (NE14)',dist:532},
+{id:63,address:'407 Serangoon Avenue 1',region:'North-East',type:'4-room',price:849999,sqft:1216,psf:699,built:1988,mrt:'Serangoon (NE12)',dist:232},
+{id:64,address:'636 Hougang Avenue 8',region:'North-East',type:'4-room',price:680000,sqft:1130,psf:602,built:1987,mrt:'Serangoon North (CR9)',dist:598},
+{id:65,address:'630 Hougang Avenue 8',region:'North-East',type:'4-room',price:520000,sqft:904,psf:575,built:1986,mrt:'Serangoon North (CR9)',dist:807}
+]);
+var T3={'Tampines':[51,52,55,58],'Pasir Ris':[53,54,56],'Bedok':[57],'Hougang':[59,61,62,64,65],'Serangoon':[60,63]};
+for(var k3 in T3)T3[k3].forEach(function(i){TOWN[i]=k3});
+var BENCH={10:969000,13:969000,44:934000,45:934000,39:603900,57:752500};
+try{st.fav=JSON.parse(localStorage.getItem('favs')||'{}')||{}}catch(e){st.fav={}}
+var T2={'Woodlands/Admiralty':[18,20,21,22,26,28,29],'Sembawang':[19,23,24,25,27,30,31],'Choa Chu Kang':[32,33,34],'Jurong East':[35],'Bukit Batok':[36,37,38,39,40],'Bukit Merah':[41,42,43,44,45,46,47,48,49]};
+for(var k in T2)T2[k].forEach(function(i){TOWN[i]=k});
+$("lmin").oninput=function(){st.lmin=+this.value;render()};
+['lr','lt','ld'].forEach(function(i){$(i).oninput=loan});
+$("rs").onclick=resetAll;
+$("oo").onchange=function(){st.openOnly=this.checked;render()};
+$("tb").onclick=function(e){var b=e.target.closest('.star');if(b)toggle(+b.dataset.id)};
+$("fv").onclick=function(e){var b=e.target.closest('.star');if(b)toggle(+b.dataset.id)};
+$("cp").onclick=function(){var q=String.fromCharCode(34),h=['address','region','type','price','sqft','sqm','built','lease_left','mrt','dist_m'],rows=(st.rows||[]).map(function(r){return [r.address,r.region,r.type,r.price,r.sqft,r.sqft?Math.round(sqm(r)):'',r.built,r.lease,r.mrt,r.dist].map(function(v){return q+String(v==null?'':v).split(q).join(q+q)+q}).join(',')}),csv=[h.join(',')].concat(rows).join(String.fromCharCode(10)),bad=function(){$('cpn').textContent='Copy was blocked here. Use the JSON panel below instead.'};try{navigator.clipboard.writeText(csv).then(function(){$('cpn').textContent='Copied '+rows.length+' rows.'},bad)}catch(e){bad()}};
+$("amin").oninput=function(){st.amin=+this.value;if(st.amin>st.amax){st.amax=st.amin;$("amax").value=st.amax}render()};
+$("amax").oninput=function(){st.amax=+this.value;if(st.amax<st.amin){st.amin=st.amax;$("amin").value=st.amin}render()};
+$("pmin").oninput=function(){st.pmin=+this.value;if(st.pmin>st.pmax){st.pmax=st.pmin;$("pmax").value=st.pmax}render()};
+$("pmax").oninput=function(){st.pmax=+this.value;if(st.pmax<st.pmin){st.pmin=st.pmax;$("pmin").value=st.pmin}render()};
+render();
+</script>
+</body>
+</html>
